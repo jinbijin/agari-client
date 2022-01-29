@@ -1,33 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { AgariComponent } from './agari.component';
 
-describe('AppComponent', () => {
+describe('AgariComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterTestingModule],
+      declarations: [AgariComponent],
     }).compileComponents();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(AgariComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'agari'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(AgariComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('agari');
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(AgariComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain('agari app is running!');

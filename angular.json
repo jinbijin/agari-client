@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "1d504e41-71c8-46f9-8706-29658736dbac"
+    "analytics": "1d504e41-71c8-46f9-8706-29658736dbac",
+    "defaultCollection": "@angular-eslint/schematics"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -18,7 +19,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "agari",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -29,14 +30,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.scss"],
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -97,14 +95,15 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.scss"],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
