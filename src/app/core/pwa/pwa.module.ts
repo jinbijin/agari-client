@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
@@ -19,7 +19,16 @@ export class PwaModule {
   static forRoot(): ModuleWithProviders<PwaModule> {
     return {
       ngModule: PwaModule,
-      providers: [UpdateNotificationService],
+      providers: [
+        UpdateNotificationService,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: (updateNotificationService: UpdateNotificationService) => () =>
+            updateNotificationService.initialize(),
+          deps: [UpdateNotificationService],
+          multi: true,
+        },
+      ],
     };
   }
 }
