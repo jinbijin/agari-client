@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { ignoreElements, Observable, tap } from 'rxjs';
 import { DB_CONFIG } from './config/db-config.token';
 import { DbConfig } from './config/db-config.type';
 import { IndexedDbService } from './indexed-db.service';
@@ -13,9 +13,12 @@ export class StorageService {
     private readonly indexedDbService: IndexedDbService
   ) {}
 
-  initialize(): Observable<any> {
+  initialize(): Observable<never> {
     return this.indexedDbService
       .openDatabase(this.dbConfig.name, this.dbConfig.version, this.dbConfig.migrations)
-      .pipe(tap((database) => (this.#idb = database)));
+      .pipe(
+        tap((database) => (this.#idb = database)),
+        ignoreElements()
+      );
   }
 }
