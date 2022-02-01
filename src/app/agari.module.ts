@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgariRoutingModule } from './agari-routing.module';
 import { AgariComponent } from './agari.component';
 import { DataModule } from './core/data/data.module';
 import { PwaModule } from './core/pwa/pwa.module';
+import { AgariRoutingModule } from './routing/agari-routing.module';
 
 @NgModule({
   declarations: [AgariComponent],
