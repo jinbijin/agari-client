@@ -6,6 +6,7 @@ import { AgariComponent } from './agari.component';
 import { DataModule } from './core/data/data.module';
 import { PwaModule } from './core/pwa/pwa.module';
 import { AgariRoutingModule } from './routing/agari-routing.module';
+import { HeaderModule } from './core/header/header.module';
 
 @NgModule({
   declarations: [AgariComponent],
@@ -22,6 +23,7 @@ import { AgariRoutingModule } from './routing/agari-routing.module';
     }),
     BrowserAnimationsModule,
     MatToolbarModule,
+    HeaderModule,
   ],
   providers: [],
   bootstrap: [AgariComponent],
