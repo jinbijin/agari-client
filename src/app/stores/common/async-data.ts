@@ -8,6 +8,7 @@ interface AsyncDataBusy<T> {
 interface AsyncDataFailed<T> {
   status: 'FAILED';
   value?: T;
+  loadingMessage: undefined;
   errorMessage: string;
 }
 
