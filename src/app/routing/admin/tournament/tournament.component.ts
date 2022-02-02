@@ -3,13 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'agari-tournament',
   templateUrl: './tournament.component.html',
-  styleUrls: ['./tournament.component.scss']
+  styleUrls: ['./tournament.component.scss'],
 })
 export class TournamentComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
