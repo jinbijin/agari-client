@@ -45,6 +45,7 @@
     "@angular-eslint/template-parser": "13.0.1",
     "@angular/cli": "~13.2.0",
     "@angular/compiler-cli": "~13.2.0",
+    "@ngxs/devtools-plugin": "^3.7.3",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.11.21",
     "@types/uuid": "^8.3.4",

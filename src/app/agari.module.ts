@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { AgariComponent } from './agari.component';
 import { AGARI_DB_CONFIG } from './agari.db-config';
@@ -19,6 +20,7 @@ import { AgariRoutingModule } from './routing/agari-routing.module';
     PwaModule.forRoot(),
     DataModule.forRoot(AGARI_DB_CONFIG),
     NgxsModule.forRoot([], AGARI_NGXS_CONFIG),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
     BrowserAnimationsModule,
     HeaderModule,
     FooterModule,

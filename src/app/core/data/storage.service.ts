@@ -21,4 +21,22 @@ export class StorageService {
         ignoreElements()
       );
   }
+
+  getAll<T>(storeName: string): Observable<T[]> {
+    return new Observable<T[]>((subscriber) => {
+      const transaction = this.#idb.transaction(storeName, 'readonly');
+      const objectStore = transaction.objectStore(storeName);
+      const request = objectStore.getAll();
+
+      request.onerror = function (event: Event) {
+        subscriber.error(this.error?.name);
+      };
+      request.onsuccess = function (event: Event) {
+        subscriber.next(this.result);
+        subscriber.complete();
+      };
+
+      return () => transaction.abort();
+    });
+  }
 }
