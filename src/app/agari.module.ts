@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgariComponent } from './agari.component';
 import { DataModule } from './core/data/data.module';
+import { FooterModule } from './core/footer/footer.module';
+import { HeaderModule } from './core/header/header.module';
 import { PwaModule } from './core/pwa/pwa.module';
 import { AgariRoutingModule } from './routing/agari-routing.module';
-import { HeaderModule } from './core/header/header.module';
 
 @NgModule({
   declarations: [AgariComponent],
@@ -22,8 +22,8 @@ import { HeaderModule } from './core/header/header.module';
       },
     }),
     BrowserAnimationsModule,
-    MatToolbarModule,
     HeaderModule,
+    FooterModule,
   ],
   providers: [],
   bootstrap: [AgariComponent],
