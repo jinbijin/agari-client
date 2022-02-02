@@ -63,7 +63,7 @@ export class TournamentState implements NgxsOnInit {
       tap(() =>
         ctx.setState(
           patch<TournamentStateModel>({
-            value: append<AsyncData<Tournament>>([{ value: tournament, status: 'DONE' }]),
+            value: append<AsyncData<Tournament>>([{ status: 'DONE', value: tournament }]),
           })
         )
       )

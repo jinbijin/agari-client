@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Create } from 'src/app/stores/tournament/tournament.actions';
 
 @Component({
   selector: 'agari-tournament-overview',
@@ -6,4 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./tournament-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TournamentOverviewComponent {}
+export class TournamentOverviewComponent {
+  constructor(private readonly store: Store) {}
+
+  create(): void {
+    this.store.dispatch(new Create('test'));
+  }
+}
