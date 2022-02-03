@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AgariFooterComponent } from './agari-footer.component';
 
-import { TournamentComponent } from './tournament.component';
-
-describe('TournamentComponent', () => {
-  let component: TournamentComponent;
-  let fixture: ComponentFixture<TournamentComponent>;
+describe('AgariFooterComponent', () => {
+  let component: AgariFooterComponent;
+  let fixture: ComponentFixture<AgariFooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TournamentComponent],
+      declarations: [AgariFooterComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TournamentComponent);
+    fixture = TestBed.createComponent(AgariFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

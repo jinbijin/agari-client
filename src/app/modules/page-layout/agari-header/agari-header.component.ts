@@ -5,11 +5,11 @@ import { filter, map, Observable, switchMap } from 'rxjs';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'header[agariHeader]',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  templateUrl: './agari-header.component.html',
+  styleUrls: ['./agari-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class AgariHeaderComponent {
   title$: Observable<string>;
 
   constructor(private readonly router: Router, private readonly route: ActivatedRoute) {

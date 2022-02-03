@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TournamentComponent } from './tournament.component';
+import { TournamentPageComponent } from './tournament-page.component';
 
-const routes: Routes = [{ path: '', component: TournamentComponent, data: { title: 'Tournaments' } }];
+const routes: Routes = [{ path: '', component: TournamentPageComponent, data: { title: 'Tournaments' } }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

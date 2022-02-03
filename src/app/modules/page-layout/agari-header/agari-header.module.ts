@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FooterComponent } from './footer.component';
+import { AgariHeaderComponent } from './agari-header.component';
 
 @NgModule({
-  declarations: [FooterComponent],
+  declarations: [AgariHeaderComponent],
   imports: [CommonModule, MatToolbarModule],
-  exports: [FooterComponent],
+  exports: [AgariHeaderComponent],
 })
-export class FooterModule {}
+export class HeaderModule {}
