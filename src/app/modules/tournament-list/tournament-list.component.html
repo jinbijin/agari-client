@@ -5,7 +5,9 @@
     <mat-card-title>{{ tournament.value.name }}</mat-card-title>
     <mat-card-content>
       <p class="file-date-data">Last modified: {{ tournament.value.dateModified | relativeToNow }}</p>
-      <p class="file-date-data">Created: {{ tournament.value.dateCreated | relativeToNow }}</p>
+      <p *ngIf="tournament.value.dateModified !== tournament.value.dateCreated" class="file-date-data">
+        Created: {{ tournament.value.dateCreated | relativeToNow }}
+      </p>
     </mat-card-content>
     <mat-card-actions align="end">
       <button mat-button color="warn" (click)="remove(tournament.value)">Remove</button>
