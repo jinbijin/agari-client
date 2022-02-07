@@ -18,3 +18,5 @@ interface AsyncDataDone<T> {
 }
 
 export type AsyncData<T> = AsyncDataBusy<T> | AsyncDataFailed<T> | AsyncDataDone<T>;
+
+export type RequiredAsyncData<T> = AsyncData<T> & { value: T };

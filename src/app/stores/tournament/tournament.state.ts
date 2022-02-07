@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, NgxsOnInit, State, StateContext, StateToken } from '@ngxs/store';
+import { Action, NgxsOnInit, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { append, patch, removeItem, updateItem } from '@ngxs/store/operators';
 import { catchError, EMPTY, map, tap } from 'rxjs';
 import { toDateTimeString } from 'src/app/common/date-time';
@@ -9,10 +9,11 @@ import {
   TOURNAMENTS_OBJECT_STORE_TOKEN,
 } from 'src/app/core/data/object-stores/tournaments.object-store';
 import { StorageService } from 'src/app/core/data/storage.service';
-import { AsyncData } from '../common/async-data';
+import { AsyncData, RequiredAsyncData } from '../common/async-data';
+import { AsyncDataBuilder } from '../common/async-data.builder';
 import { Create, Delete, Read, Update } from './tournament.actions';
 
-export type TournamentStateModel = AsyncData<AsyncData<Tournament>[]> | undefined;
+export type TournamentStateModel = AsyncData<RequiredAsyncData<Tournament>[]> | undefined;
 
 export const TOURNAMENT_STATE_TOKEN: StateToken<TournamentStateModel> = new StateToken<TournamentStateModel>(
   'tournament'
@@ -22,6 +23,17 @@ export const TOURNAMENT_STATE_TOKEN: StateToken<TournamentStateModel> = new Stat
 @Injectable()
 export class TournamentState implements NgxsOnInit {
   constructor(private readonly storageService: StorageService) {}
+
+  @Selector()
+  static tournaments(state: TournamentStateModel): TournamentStateModel {
+    if (!state) {
+      return state;
+    }
+
+    return AsyncDataBuilder.from(state)
+      .map((value) => [...value].sort((x, y) => y.value.dateModified.localeCompare(x.value.dateModified)))
+      .toAsyncData();
+  }
 
   static matchTournamentPredicate(publicKey: Uuid): (asyncTournament?: AsyncData<Tournament>) => boolean {
     return (asyncTournament) => asyncTournament?.value?.publicKey === publicKey;
@@ -36,7 +48,10 @@ export class TournamentState implements NgxsOnInit {
     ctx.patchState({ status: 'BUSY', loadingMessage: 'Reading tournaments...' });
     return this.storageService.getAll(TOURNAMENTS_OBJECT_STORE_TOKEN).pipe(
       map((tournaments) =>
-        tournaments.map<AsyncData<Tournament>>((tournament) => ({ status: 'DONE', value: tournament }))
+        tournaments.map<RequiredAsyncData<Tournament>>((tournament) => ({
+          status: 'DONE',
+          value: tournament,
+        }))
       ),
       tap((tournaments) => ctx.setState({ status: 'DONE', value: tournaments })),
       catchError((err) => {
@@ -63,7 +78,7 @@ export class TournamentState implements NgxsOnInit {
       tap(() =>
         ctx.setState(
           patch<TournamentStateModel>({
-            value: append<AsyncData<Tournament>>([{ status: 'DONE', value: tournament }]),
+            value: append<RequiredAsyncData<Tournament>>([{ status: 'DONE', value: tournament }]),
           })
         )
       )
@@ -81,7 +96,7 @@ export class TournamentState implements NgxsOnInit {
 
     ctx.setState(
       patch<TournamentStateModel>({
-        value: updateItem<AsyncData<Tournament>>(
+        value: updateItem<RequiredAsyncData<Tournament>>(
           TournamentState.matchTournamentPredicate(publicKey),
           patch({ status: 'BUSY', loadingMessage: 'Updating tournament...' })
         ),
@@ -91,10 +106,13 @@ export class TournamentState implements NgxsOnInit {
       tap(() =>
         ctx.setState(
           patch<TournamentStateModel>({
-            value: updateItem<AsyncData<Tournament>>(TournamentState.matchTournamentPredicate(publicKey), {
-              status: 'DONE',
-              value: tournament,
-            }),
+            value: updateItem<RequiredAsyncData<Tournament>>(
+              TournamentState.matchTournamentPredicate(publicKey),
+              {
+                status: 'DONE',
+                value: tournament,
+              }
+            ),
           })
         )
       ),
@@ -102,12 +120,15 @@ export class TournamentState implements NgxsOnInit {
         console.error(err);
         ctx.setState(
           patch<TournamentStateModel>({
-            value: updateItem<AsyncData<Tournament>>(TournamentState.matchTournamentPredicate(publicKey), {
-              status: 'FAILED',
-              value: tournament,
-              loadingMessage: undefined,
-              errorMessage: 'Error occurred while updating tournament.',
-            }),
+            value: updateItem<RequiredAsyncData<Tournament>>(
+              TournamentState.matchTournamentPredicate(publicKey),
+              {
+                status: 'FAILED',
+                value: tournament,
+                loadingMessage: undefined,
+                errorMessage: 'Error occurred while updating tournament.',
+              }
+            ),
           })
         );
         return EMPTY;
@@ -119,7 +140,7 @@ export class TournamentState implements NgxsOnInit {
   delete(ctx: StateContext<TournamentStateModel>, { publicKey }: Delete) {
     ctx.setState(
       patch<TournamentStateModel>({
-        value: updateItem<AsyncData<Tournament>>(
+        value: updateItem<RequiredAsyncData<Tournament>>(
           TournamentState.matchTournamentPredicate(publicKey),
           patch({ status: 'BUSY', loadingMessage: 'Deleting tournament...' })
         ),
@@ -129,7 +150,9 @@ export class TournamentState implements NgxsOnInit {
       tap(() =>
         ctx.setState(
           patch<TournamentStateModel>({
-            value: removeItem<AsyncData<Tournament>>(TournamentState.matchTournamentPredicate(publicKey)),
+            value: removeItem<RequiredAsyncData<Tournament>>(
+              TournamentState.matchTournamentPredicate(publicKey)
+            ),
           })
         )
       )

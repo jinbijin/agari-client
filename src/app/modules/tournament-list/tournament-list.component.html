@@ -1,8 +1,6 @@
 <mat-list *ngIf="tournaments.value as tournamentsValue">
-  <ng-container *ngFor="let tournament of tournamentsValue">
-    <mat-list-item *ngIf="tournament.value as tournamentValue">
-      <h3 matLine>{{ tournamentValue.name }}</h3>
-      <p matLine class="last-modified">Last modified: {{ tournamentValue.dateModified | relativeToNow }}</p>
-    </mat-list-item>
-  </ng-container>
+  <mat-list-item *ngFor="let tournament of tournamentsValue">
+    <h3 matLine>{{ tournament.value.name }}</h3>
+    <p matLine class="last-modified">Last modified: {{ tournament.value.dateModified | relativeToNow }}</p>
+  </mat-list-item>
 </mat-list>
