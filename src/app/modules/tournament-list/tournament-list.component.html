@@ -4,8 +4,8 @@
     <mat-card-subtitle>{{ tournament.value.publicKey }}</mat-card-subtitle>
     <mat-card-title>{{ tournament.value.name }}</mat-card-title>
     <mat-card-content>
-      <p class="last-modified">Last modified: {{ tournament.value.dateModified | relativeToNow }}</p>
-      <p class="last-modified">Created: {{ tournament.value.dateCreated | relativeToNow }}</p>
+      <p class="file-date-data">Last modified: {{ tournament.value.dateModified | relativeToNow }}</p>
+      <p class="file-date-data">Created: {{ tournament.value.dateCreated | relativeToNow }}</p>
     </mat-card-content>
     <mat-card-actions align="end">
       <button mat-button color="warn" (click)="remove(tournament.value)">Remove</button>
