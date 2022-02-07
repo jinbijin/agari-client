@@ -1,0 +1,15 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>Create tournament</mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="form-container">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [formControl]="nameControl" />
+      <mat-error>This field is required.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="submit()">Create</button>
+  </div>
+</mat-expansion-panel>
