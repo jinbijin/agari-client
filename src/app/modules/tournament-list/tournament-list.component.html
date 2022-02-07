@@ -7,6 +7,9 @@
       <p class="last-modified">Last modified: {{ tournament.value.dateModified | relativeToNow }}</p>
       <p class="last-modified">Created: {{ tournament.value.dateCreated | relativeToNow }}</p>
     </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button color="warn" (click)="remove(tournament.value)">Remove</button>
+    </mat-card-actions>
     <mat-card-footer>
       <mat-progress-bar *ngIf="tournament.status === 'BUSY'" mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
