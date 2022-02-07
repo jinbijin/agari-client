@@ -1,6 +1,14 @@
-<mat-list *ngIf="tournaments.value as tournamentsValue">
-  <mat-list-item *ngFor="let tournament of tournamentsValue">
-    <h3 matLine>{{ tournament.value.name }}</h3>
-    <p matLine class="last-modified">Last modified: {{ tournament.value.dateModified | relativeToNow }}</p>
-  </mat-list-item>
-</mat-list>
+<mat-progress-bar *ngIf="tournaments.status === 'BUSY'" mode="indeterminate"></mat-progress-bar>
+<ng-container *ngIf="tournaments.value as tournamentsValue">
+  <mat-card *ngFor="let tournament of tournamentsValue">
+    <mat-card-subtitle>{{ tournament.value.publicKey }}</mat-card-subtitle>
+    <mat-card-title>{{ tournament.value.name }}</mat-card-title>
+    <mat-card-content>
+      <p class="last-modified">Last modified: {{ tournament.value.dateModified | relativeToNow }}</p>
+      <p class="last-modified">Created: {{ tournament.value.dateCreated | relativeToNow }}</p>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-progress-bar *ngIf="tournament.status === 'BUSY'" mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</ng-container>
