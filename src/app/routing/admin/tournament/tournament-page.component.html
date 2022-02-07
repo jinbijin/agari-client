@@ -1,1 +1,4 @@
-<agari-tournament-overview></agari-tournament-overview>
+<agari-tournament-list
+  *ngIf="tournaments$ | async as tournaments"
+  [tournaments]="tournaments"
+></agari-tournament-list>
