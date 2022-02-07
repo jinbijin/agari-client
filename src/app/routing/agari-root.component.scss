@@ -8,5 +8,27 @@
   > main {
     height: 100%;
     overflow-y: auto;
+
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 100ch) 1fr;
+    align-content: start;
+    gap: var(--root-spacer);
+  }
+}
+
+::ng-deep main {
+  &,
+  > ng-component {
+    display: contents;
+
+    > :not(.page-spread) {
+      grid-column: 2 / span 1;
+    }
+
+    > .page-spread {
+      grid-column: 1 / span 3;
+      padding-left: var(--root-spacer);
+      padding-right: var(--root-spacer);
+    }
   }
 }

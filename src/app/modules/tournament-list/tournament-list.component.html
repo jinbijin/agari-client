@@ -1,5 +1,5 @@
 <mat-progress-bar *ngIf="tournaments.status === 'BUSY'" mode="indeterminate"></mat-progress-bar>
-<ng-container *ngIf="tournaments.value as tournamentsValue">
+<div *ngIf="tournaments.value as tournamentsValue" class="card-grid">
   <mat-card *ngFor="let tournament of tournamentsValue">
     <mat-card-subtitle>{{ tournament.value.publicKey }}</mat-card-subtitle>
     <mat-card-title>{{ tournament.value.name }}</mat-card-title>
@@ -16,4 +16,4 @@
       <mat-progress-bar *ngIf="tournament.status === 'BUSY'" mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
   </mat-card>
-</ng-container>
+</div>
