@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:pwa": "http-server -p 8080 -c-1 dist/agari",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -52,6 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "eslint": "^8.2.0",
+    "http-server": "^14.1.0",
     "jest": "^27.4.7",
     "jest-preset-angular": "^11.1.0",
     "prettier": "^2.5.1",

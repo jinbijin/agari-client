@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Angular
 .angular/
+
+# Build artifacts
+dist/
