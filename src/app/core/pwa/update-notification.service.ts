@@ -5,29 +5,37 @@ import { filter, from, switchMap, tap } from 'rxjs';
 
 @Injectable()
 export class UpdateNotificationService {
-  constructor(updates: SwUpdate, snackBar: MatSnackBar) {
-    updates.versionUpdates.subscribe((event) => {
-      switch (event.type) {
-        case 'VERSION_READY':
-          const snackBarRef = snackBar.open(
-            'An update to a new version is ready to be installed.',
-            'Install'
-          );
-          snackBarRef
-            .onAction()
-            .pipe(
-              switchMap(() => from(updates.activateUpdate())),
-              filter((x) => x),
-              tap(() => snackBar.open('Update successful!', undefined, { duration: 5000 }))
-            )
-            .subscribe();
-          break;
-        case 'VERSION_DETECTED':
-          snackBar.open('An update to a new version is available and downloading...', undefined, {
-            duration: 5000,
-          });
-          break;
-      }
-    });
+  constructor(private readonly updates: SwUpdate, private readonly snackBar: MatSnackBar) {}
+
+  initialize(): void {
+    this.updates.versionUpdates
+      .pipe(
+        tap((event) => {
+          switch (event.type) {
+            case 'VERSION_READY':
+              const snackBarRef = this.snackBar.open('An update is ready to be installed.', 'Install');
+              snackBarRef
+                .onAction()
+                .pipe(
+                  switchMap(() => from(this.updates.activateUpdate())),
+                  filter((x) => x),
+                  tap(() =>
+                    this.snackBar.open(
+                      'Update successful! Refresh the page to use the new version.',
+                      'Got it!'
+                    )
+                  )
+                )
+                .subscribe();
+              break;
+            case 'VERSION_DETECTED':
+              this.snackBar.open('An update is available and downloading...', undefined, {
+                duration: 5000,
+              });
+              break;
+          }
+        })
+      )
+      .subscribe();
   }
 }

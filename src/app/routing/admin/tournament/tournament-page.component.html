@@ -1,0 +1,6 @@
+<agari-tournament-creator></agari-tournament-creator>
+<agari-tournament-list
+  *ngIf="tournaments$ | async as tournaments"
+  [tournaments]="tournaments"
+  class="page-spread"
+></agari-tournament-list>
